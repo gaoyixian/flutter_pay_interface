@@ -18,7 +18,7 @@ T? getObjectKeyValueByPath<T>(dynamic object, String key, {T? def}) {
 
 abstract class FlutterPayInterface {
   // 初始化
-  Future<void> init(Future<bool> Function(String?, String, String) verifyReceipt);
+  Future<void> init(Future<bool> Function(String?, String, String) verifyReceipt, void Function() onError);
   // 支付
   Future<void> pay(dynamic rsp, int time);
   // 恢复购买
