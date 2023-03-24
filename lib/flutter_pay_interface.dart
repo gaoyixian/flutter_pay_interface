@@ -64,8 +64,9 @@ abstract class FlutterPayInterface {
       required int gold,
       required int rmb,
       required void Function(int p1, int p2) toPay});
+  void vipPayBottom(BuildContext context, {required int index, required void Function(bool isShow) onchange});
   Widget getAndroidlxbysm();
-  
+  int getTyp(bool isAli);
 }
 
 abstract class IWithDrawalMgr with EventDispatcher {
