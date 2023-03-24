@@ -1,5 +1,5 @@
-import 'package:flutter/material.dart';
 import 'package:events_widget/event_dispatcher.dart';
+import 'package:flutter/material.dart';
 
 /// 获取数据
 /// key 如:data.name
@@ -39,19 +39,33 @@ typedef LocalizationText = Widget Function(
 });
 
 typedef VerifyReceipt = Future<bool> Function(String?, String, String);
+typedef ShowBottomSheet = void Function(
+      {required BuildContext context,
+      required Widget container});
 
 abstract class FlutterPayInterface {
   // 初始化
   Future<void> init(
       {required VerifyReceipt verifyReceipt,
       required LocalizationText localizationText,
-      required void Function() onError});
+      required void Function() onError,
+      required ShowBottomSheet showBottomSheet,
+      });
   // 支付
   Future<void> pay(dynamic rsp, int time);
   // 恢复购买
   Future<void> restorePurchases();
   // 退出登录
   Future<void> logout();
+  Widget getPlayButton(BuildContext context, double rate, int chooseIndex,
+      void Function(int index, int typ) toPay);
+  void paymethodBottom(BuildContext context,
+      {required int id,
+      required int gold,
+      required int rmb,
+      required void Function(int p1, int p2) toPay});
+  Widget getAndroidlxbysm();
+  
 }
 
 abstract class IWithDrawalMgr with EventDispatcher {
@@ -73,7 +87,7 @@ abstract class IWithDrawalMgr with EventDispatcher {
   List<IWithDrawalModel> get withdrawalDailyList; //日常提现
   //提现明细列表
   List<IWithDrawDetail> get withDrawList;
-  
+
   String? get listLastId;
   set listLastId(String? v);
   Future withdrawal(
@@ -83,8 +97,12 @@ abstract class IWithDrawalMgr with EventDispatcher {
   exchangeGold(int id);
   void toUserCertification(BuildContext context);
   void showToast(String tips);
-    void navigatorPushTo(BuildContext context, Widget widget);
+  void navigatorPushTo(BuildContext context, Widget widget);
   Widget getListNodataView(String tips, Function? requestCallback);
+  void setMakeEarningsFunc(Widget Function() v);
+  void setMakeCashFunc(Widget Function() v);
+  void setMakeCashDetailsFunc(Widget Function() v);
+  void setPageDef(Type c1, Type c2, Type c3);
 }
 
 abstract class IWithDrawalModel {

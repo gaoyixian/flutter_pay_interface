@@ -10,16 +10,16 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-
-dev_dependencies:
-  flutter_test:
-    sdk: flutter
-  flutter_lints: ^1.0.0
   # 状态管理
   events_widget:
    git:
     url: http://git.eatdesk.net/flutter_plugin/events_widget.git
     ref: ef7c3b91ad6e1527b7eb95004884b919d4991b89
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^1.0.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
