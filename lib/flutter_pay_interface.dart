@@ -1,5 +1,6 @@
 import 'package:events_widget/event_dispatcher.dart';
 import 'package:flutter/material.dart';
+import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 
 /// 获取数据
 /// key 如:data.name
@@ -43,13 +44,32 @@ typedef ShowBottomSheet = void Function(
       {required BuildContext context,
       required Widget container});
 
-abstract class FlutterPayInterface {
+abstract class FlutterPayPlatform extends PlatformInterface {
+  FlutterPayPlatform() : super(token: _token);
+  static final Object _token = Object();
+
+ static FlutterPayPlatform _instance = MethodChannelFlutterPay();
+
+  /// The default instance of [OaidKitPlatform] to use.
+  ///
+  /// Defaults to [MethodChannelOaidKit].
+  static FlutterPayPlatform get instance => _instance;
+
+  /// Platform-specific implementations should set this with their own
+  /// platform-specific class that extends [OaidKitPlatform] when
+  /// they register themselves.
+  static set instance(FlutterPayPlatform instance) {
+    PlatformInterface.verifyToken(instance, _token);
+    _instance = instance;
+  }
+
   // 初始化
   Future<void> init(
       {required VerifyReceipt verifyReceipt,
       required LocalizationText localizationText,
       required void Function() onError,
       required ShowBottomSheet showBottomSheet,
+      required IWithDrawalMgr withDrawalMgr,
       });
   // 支付
   Future<void> pay(dynamic rsp, int time);
@@ -65,9 +85,69 @@ abstract class FlutterPayInterface {
       required int rmb,
       required void Function(int p1, int p2) toPay});
   void vipPayBottom(BuildContext context, {required int index, required void Function(bool isShow) onchange});
-  Widget getAndroidlxbysm();
+  Widget getLxbysm();
   int getTyp(bool isAli);
   String getPname(bool isAli);
+}
+
+class MethodChannelFlutterPay extends FlutterPayPlatform{
+  @override
+  Widget getLxbysm() {
+    // TODO: implement getAndroidlxbysm
+    throw UnimplementedError();
+  }
+
+  @override
+  Widget getPlayButton(BuildContext context, double rate, int chooseIndex, void Function(int index, int typ) toPay) {
+    // TODO: implement getPlayButton
+    throw UnimplementedError();
+  }
+
+  @override
+  String getPname(bool isAli) {
+    // TODO: implement getPname
+    throw UnimplementedError();
+  }
+
+  @override
+  int getTyp(bool isAli) {
+    // TODO: implement getTyp
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<void> logout() {
+    // TODO: implement logout
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<void> pay(rsp, int time) {
+    // TODO: implement pay
+    throw UnimplementedError();
+  }
+
+  @override
+  void paymethodBottom(BuildContext context, {required int id, required int gold, required int rmb, required void Function(int p1, int p2) toPay}) {
+    // TODO: implement paymethodBottom
+  }
+
+  @override
+  Future<void> restorePurchases() {
+    // TODO: implement restorePurchases
+    throw UnimplementedError();
+  }
+
+  @override
+  void vipPayBottom(BuildContext context, {required int index, required void Function(bool isShow) onchange}) {
+    // TODO: implement vipPayBottom
+  }
+  
+  @override
+  Future<void> init({required VerifyReceipt verifyReceipt, required LocalizationText localizationText, required void Function() onError, required ShowBottomSheet showBottomSheet, required IWithDrawalMgr withDrawalMgr})async {
+    // TODO: implement init
+    // throw UnimplementedError();
+  }
 }
 
 abstract class IWithDrawalMgr with EventDispatcher {
