@@ -41,14 +41,13 @@ typedef LocalizationText = Widget Function(
 
 typedef VerifyReceipt = Future<bool> Function(String?, String, String);
 typedef ShowBottomSheet = void Function(
-      {required BuildContext context,
-      required Widget container});
+    {required BuildContext context, required Widget container});
 
 abstract class FlutterPayPlatform extends PlatformInterface {
   FlutterPayPlatform() : super(token: _token);
   static final Object _token = Object();
 
- static FlutterPayPlatform _instance = MethodChannelFlutterPay();
+  static FlutterPayPlatform _instance = MethodChannelFlutterPay();
 
   /// The default instance of [OaidKitPlatform] to use.
   ///
@@ -64,13 +63,13 @@ abstract class FlutterPayPlatform extends PlatformInterface {
   }
 
   // 初始化
-  Future<void> init(
-      {required VerifyReceipt verifyReceipt,
-      required LocalizationText localizationText,
-      required void Function() onError,
-      required ShowBottomSheet showBottomSheet,
-      required IWithDrawalMgr withDrawalMgr,
-      });
+  Future<void> init({
+    required VerifyReceipt verifyReceipt,
+    required LocalizationText localizationText,
+    required void Function() onError,
+    required ShowBottomSheet showBottomSheet,
+    required IWithDrawalMgr withDrawalMgr,
+  });
   // 支付
   Future<void> pay(dynamic rsp, int time);
   // 恢复购买
@@ -79,18 +78,22 @@ abstract class FlutterPayPlatform extends PlatformInterface {
   Future<void> logout();
   Widget getPlayButton(BuildContext context, double rate, int chooseIndex,
       void Function(int index, int typ) toPay);
-  void paymethodBottom(BuildContext context,
-      {required int id,
-      required int gold,
-      required int rmb,
-      required void Function(int p1, int p2) toPay});
-  void vipPayBottom(BuildContext context, {required int index, required void Function(bool isShow) onchange});
+  void paymethodBottom(
+    BuildContext context, {
+    required int id,
+    required int gold,
+    required double price, //货币数量
+    String? currencyCode, //货币代码
+    required void Function(int p1, int p2) toPay,
+  });
+  void vipPayBottom(BuildContext context,
+      {required int index, required void Function(bool isShow) onchange});
   Widget getLxbysm();
   int getTyp(bool isAli);
   String getPname(bool isAli);
 }
 
-class MethodChannelFlutterPay extends FlutterPayPlatform{
+class MethodChannelFlutterPay extends FlutterPayPlatform {
   @override
   Widget getLxbysm() {
     // TODO: implement getAndroidlxbysm
@@ -98,7 +101,8 @@ class MethodChannelFlutterPay extends FlutterPayPlatform{
   }
 
   @override
-  Widget getPlayButton(BuildContext context, double rate, int chooseIndex, void Function(int index, int typ) toPay) {
+  Widget getPlayButton(BuildContext context, double rate, int chooseIndex,
+      void Function(int index, int typ) toPay) {
     // TODO: implement getPlayButton
     throw UnimplementedError();
   }
@@ -128,7 +132,14 @@ class MethodChannelFlutterPay extends FlutterPayPlatform{
   }
 
   @override
-  void paymethodBottom(BuildContext context, {required int id, required int gold, required int rmb, required void Function(int p1, int p2) toPay}) {
+  void paymethodBottom(
+    BuildContext context, {
+    required int id,
+    required int gold,
+    required double price,
+    String? currencyCode,
+    required void Function(int p1, int p2) toPay,
+  }) {
     // TODO: implement paymethodBottom
   }
 
@@ -139,12 +150,18 @@ class MethodChannelFlutterPay extends FlutterPayPlatform{
   }
 
   @override
-  void vipPayBottom(BuildContext context, {required int index, required void Function(bool isShow) onchange}) {
+  void vipPayBottom(BuildContext context,
+      {required int index, required void Function(bool isShow) onchange}) {
     // TODO: implement vipPayBottom
   }
-  
+
   @override
-  Future<void> init({required VerifyReceipt verifyReceipt, required LocalizationText localizationText, required void Function() onError, required ShowBottomSheet showBottomSheet, required IWithDrawalMgr withDrawalMgr})async {
+  Future<void> init(
+      {required VerifyReceipt verifyReceipt,
+      required LocalizationText localizationText,
+      required void Function() onError,
+      required ShowBottomSheet showBottomSheet,
+      required IWithDrawalMgr withDrawalMgr}) async {
     // TODO: implement init
     // throw UnimplementedError();
   }
@@ -212,4 +229,68 @@ abstract class IWithDrawDetail {
   // int updateTime = 0; //更新时间
   // int type = 0; //提现类型
   applyJson(Map<String, dynamic> json);
+}
+
+///货币代码(暂定前20种)
+///http://www.webmasterhome.cn/huilv/huobidaima.asp
+class CurrencyCode {
+  ///人民币
+  static const CNY = 'CNY';
+
+  ///美元
+  static const USD = 'USD';
+
+  ///欧元
+  static const EUR = 'EUR';
+
+  ///英镑
+  static const GBP = 'GBP';
+
+  ///澳元
+  static const AUD = 'AUD';
+
+  ///加元
+  static const CAD = 'CAD';
+
+  ///日元
+  static const JPY = 'JPY';
+
+  ///港币
+  static const HKD = 'HKD';
+
+  ///印度卢比
+  static const INR = 'INR';
+
+  ///南非兰特
+  static const ZAR = 'ZAR';
+
+  ///新台币
+  static const TWD = 'TWD';
+
+  ///澳门元
+  static const MOP = 'MOP';
+
+  ///韩元
+  static const KRW = 'KRW';
+
+  ///泰铢
+  static const THB = 'THB';
+
+  ///新西兰元
+  static const NZD = 'NZD';
+
+  ///新加坡元
+  static const SGD = 'SGD';
+
+  ///阿联酋迪拉姆
+  static const AED = 'AED';
+
+  ///阿富汗尼
+  static const AFN = 'AFN';
+
+  ///阿尔巴尼列克
+  static const ALL = 'ALL';
+
+  ///亚美尼亚德拉姆
+  static const AMD = 'AMD';
 }
