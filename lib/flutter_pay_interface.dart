@@ -72,7 +72,7 @@ abstract class FlutterPayPlatform extends PlatformInterface {
     String? payConfig,//pay插件配置
   });
   // 支付
-  Future<void> pay(dynamic rsp, int time);
+  Future<dynamic> pay(dynamic rsp, int time);
   // 恢复购买
   Future<void> restorePurchases();
   // 退出登录
@@ -134,7 +134,7 @@ class MethodChannelFlutterPay extends FlutterPayPlatform {
   }
 
   @override
-  Future<void> pay(rsp, int time) {
+  Future<dynamic> pay(rsp, int time) {
     // TODO: implement pay
     throw UnimplementedError();
   }
