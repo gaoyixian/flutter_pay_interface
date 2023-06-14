@@ -69,6 +69,7 @@ abstract class FlutterPayPlatform extends PlatformInterface {
     required void Function() onError,
     required ShowBottomSheet showBottomSheet,
     required IWithDrawalMgr withDrawalMgr,
+    String? payConfig,//pay插件配置
   });
   // 支付
   Future<void> pay(dynamic rsp, int time);
@@ -91,6 +92,7 @@ abstract class FlutterPayPlatform extends PlatformInterface {
   Widget getLxbysm();
   int getTyp(bool isAli);
   String getPname(bool isAli);
+  String getPnameByType(int type);
 }
 
 class MethodChannelFlutterPay extends FlutterPayPlatform {
@@ -109,6 +111,12 @@ class MethodChannelFlutterPay extends FlutterPayPlatform {
 
   @override
   String getPname(bool isAli) {
+    // TODO: implement getPname
+    throw UnimplementedError();
+  }
+
+  @override
+  String getPnameByType(int type) {
     // TODO: implement getPname
     throw UnimplementedError();
   }
@@ -156,12 +164,14 @@ class MethodChannelFlutterPay extends FlutterPayPlatform {
   }
 
   @override
-  Future<void> init(
-      {required VerifyReceipt verifyReceipt,
-      required LocalizationText localizationText,
-      required void Function() onError,
-      required ShowBottomSheet showBottomSheet,
-      required IWithDrawalMgr withDrawalMgr}) async {
+  Future<void> init({
+    required VerifyReceipt verifyReceipt,
+    required LocalizationText localizationText,
+    required void Function() onError,
+    required ShowBottomSheet showBottomSheet,
+    required IWithDrawalMgr withDrawalMgr,
+    String? payConfig, //pay插件配置
+  }) async {
     // TODO: implement init
     // throw UnimplementedError();
   }
