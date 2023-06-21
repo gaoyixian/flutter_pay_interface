@@ -11,7 +11,7 @@ dependencies:
   flutter:
     sdk: flutter
   plugin_platform_interface: ^2.0.2
-  # 状态管理
+  # events_widget
   events_widget:
    git:
     url: http://git.eatdesk.net/flutter_plugin/events_widget.git
