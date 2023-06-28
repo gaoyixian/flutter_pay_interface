@@ -39,7 +39,7 @@ typedef LocalizationText = Widget Function(
   // InlineSpan? textSpan,
 });
 
-typedef VerifyReceipt = Future<bool> Function(String?, String, String);
+typedef VerifyReceipt = Future<bool> Function(String?, String, String, String);
 typedef ShowBottomSheet = void Function(
     {required BuildContext context, required Widget container});
 
